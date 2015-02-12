@@ -1,0 +1,17 @@
+*.dvi
+*.bak
+*.bcf
+*.log
+*.aux
+*.bbl
+*.blg
+*.gz
+*-blx.bib
+*.out
+*.rel
+*.bst
+*.nav
+*.toc
+*.vrb
+*.snm
+*.run.xml
