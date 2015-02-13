@@ -15,3 +15,11 @@
 *.vrb
 *.snm
 *.run.xml
+
+Fribbles
+experiment/*.pyc
+experiment/.jshintrc
+experiment/server.log
+experiment/node_modules
+experiment/participants.db
+experiment/.psiturk_history
