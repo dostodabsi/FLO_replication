@@ -2,16 +2,19 @@ var num = new Array (15,5,15,5,15,5,20);
 
 var names = new Array ('tob', 'tob', 'wug', 'wug', 'dep','dep','bim');
 var categories = new Array(0, 1, 2, 3, 4, 5, 6);
+var order = new Array();
+var done = false;
 
 function shuffle()
 {
-	var order = new Array();
+
 	var count;
 	//set counts of each category to 0
 	count = new Array(0,0,0,0,0,0,0);
 
 	//Make bins of possible followers for each category
 	var bins = new Array();
+	
 	for(var i=0; i<categories.length; i++)
 	{	
 		var cat = categories[i];
@@ -23,7 +26,6 @@ function shuffle()
 			for(var i=0; i<6; i++)
 			{
 				pushNTimes(egory, i, num[i]);
-				//egory.push(i*num[i]); //???
 			}
 		}
 		else
@@ -31,28 +33,22 @@ function shuffle()
 			//add the appropriate number of exemplars (hi vs lo frequency)
 			//from the appropriate category
 			pushNTimes(egory, (cat+2)%6, num[(cat+2)%6]);
-			//egory.push(((cat+2)%6)*num[(cat+2)%6]);
 			pushNTimes(egory, (cat+3)%6, num[(cat+3)%6]);
-			//egory.push(((cat+3)%6)*num[(cat+3)%6]);
 			pushNTimes(egory, (cat+4)%6, num[(cat+4)%6]);
-			//egory.push(((cat+4)%6)*num[(cat+4)%6]);
 			//the names in names are ordered such that the code above selects
 			//appropriate categories i.e. categories that don't share body type
 
 			//any category can be followed by the control category
 			pushNTimes(egory, 6, num[6]);
-			//egory.push(6*num[6]);		
 		}
 		bins.push(egory);
 	}
 	
 	//select the first element at random
 	var prev = categories[Math.floor(Math.random()*categories.length)];
-
-	var done = false;
+	
 	while (!done)
 	{
-
 		//if there are still valid successors...
 		if (bins[prev].length != 0)
 		{
@@ -110,6 +106,16 @@ function pushNTimes(array, value, n)
 	{
 		array.push(value);
 	}
+}
+
+function fullShuffle()
+{
+	while(!done)
+	{	
+		order = new Array();
+        order = shuffle();
+	}
+	return order;
 }
 
 function appendParagraph(txt) 

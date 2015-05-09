@@ -7,7 +7,7 @@ function test()
 	for(var i=0; i<n; i++)
 	{
 		var order = [];
-		order = shuffle();	
+		order = fullShuffle();	
 		if(hasArraySameSuccessor(order))
 		{
 			invalidCount += 1;
