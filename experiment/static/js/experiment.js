@@ -1,7 +1,7 @@
 var psiTurk = require('./psiturk');
-var ending = require('./specific/ending');
 var items = require('./specific/items').items;
 var setup = require('./specific/items').setup;
+var Questionnaire = require('./specific/postquestionnaire');
 
 
 class Experiment {
@@ -20,8 +20,11 @@ class Experiment {
       this.trial = this.allTrials[this.curTrial++];
       this.isFL = this.trial.learning == 'FL';
 
-      if (!this.isFL) $('img').attr('src', '');
-      else $('#label').text(''); // fixation cross ?
+      if (!this.isFL) {
+        $('img').hide();
+      } else {
+        $('#label').text(''); // fixation cross ?
+      }
       this.startLearning();
     }
     else
@@ -36,7 +39,7 @@ class Experiment {
 
   pause(from) {
     $('#label').text('');
-    $('img').attr('src', ''); // reset the screen
+    $('img').hide();
 
     var img = from == 'img';
     var time = this.isFL ? (img ? 150 : 1000) : (img ? 1000 : 150);
@@ -60,6 +63,7 @@ class Experiment {
 
   changeImage() {
     $('img').attr('src', `../static/aliens/${this.trial.alien}.png`);
+    $('img').show();
     setTimeout(() => this.pause('img'), this.ALIEN_TIME);
   }
 
@@ -71,18 +75,18 @@ class Experiment {
   }
 
   end() {
-    psiTurk.showPage('postquestionnaire.html');
-    psiTurk.recordTrialData({'phase':'postquestionnaire', 'status':'begin'});
-    ending();
+    new Questionnaire(psiTurk).start();
   }
 
   recognition() {
+    $('img').hide();
     $('#buttons').css('visibility', 'visible');
     $('#label').text('Recognition Task will follow!');
     this.bindButtons();
   }
 
   categorization() {
+    $('img').hide();
     $('#label').text('Categorization Task will follow!');
     setTimeout(this.end, 2000);
   }

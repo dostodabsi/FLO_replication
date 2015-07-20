@@ -3,7 +3,7 @@ import json
 import pandas as pd
 
 
-rating_header = ['id', 'itemTime', 'language', 'alien', 'learning', 'answer', 'correct']
+rating_header = ['id', 'itemTime', 'language', 'alien', 'learning', 'answer', 'correct', 'engagement', 'difficulty', 'comments']
 
 db_url = 'sqlite:///participants.db'
 table_name = 'flo'
@@ -51,18 +51,39 @@ for part in data:
 data = [record['trialdata'] for part in data for record in part
                        if isinstance(record['trialdata'], list)]
 
-def addLanguage(data, header):
-    added = []
-    language = ''
-    for line in reversed(data):
-        if len(line) < len(header) - 1:
-            language = line[-1]
-        else:
-            line.insert(2, language.lower())
-	    added.insert(0, line)
-    return added
+def addLanguage(data):
+    newdat = []
 
-data = addLanguage(data, rating_header)
+    j = 0
+    part = list(set([data[i][0] for i in range(len(data))]))
+    meta = [line for line in data if len(line) <= 3]
+
+    for i in range(len(part)):
+        curpart = part[i]
+
+        language = meta[j][-1]
+        comments = meta[j+1][-1] or 'NA'
+        engagement = meta[j+2][-1]
+        difficulty = meta[j+3][-1]
+
+        for line in data:
+            if line[0] != curpart or len(line) <= 3:
+                continue
+
+            extended = line[:]
+            extended.insert(2, language)
+            extended.insert(len(extended), engagement)
+            extended.insert(len(extended), difficulty)
+            extended.insert(len(extended), comments)
+
+            newdat.append(extended)
+
+        j+= 4
+
+    return newdat
+
+data = addLanguage(data)
+
 # Put all subjects' trial data into a dataframe object from the
 # 'pandas' python library: one option among many for analysis
 data_frame = pd.DataFrame(data)
