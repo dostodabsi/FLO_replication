@@ -39,4 +39,4 @@ If you run the experiment locally (or remotely, upon changing the database locat
 python get_data.py
 ```
 ## Todo
-Get stimuli pairs, implement both recognition and category verification task.
+Get stimuli pairs, implement both recognition and category verification task. Instruction manipulation checks? Attention checks?
