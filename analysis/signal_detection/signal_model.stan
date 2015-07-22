@@ -26,8 +26,8 @@ transformed parameters {
 
 model {
   for (i in 1:N) {
-    h[i] ~ binomial(signal, theta_hit[i]);
-    f[i] ~ binomial(noise, theta_false[i]);
+    h[i] ~ binomial(signal[i], theta_hit[i]);
+    f[i] ~ binomial(noise[i], theta_false[i]);
 
     d[i] ~ normal(mu_d, sigma_d);
     c[i] ~ normal(mu_c, sigma_c);

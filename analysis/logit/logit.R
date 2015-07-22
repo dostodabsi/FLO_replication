@@ -29,7 +29,17 @@ compfit <- readRDS('compiled_model.RDS')
 sflist <- mclapply(1:4, mc.cores = 4,
                    function(i) stan(fit = compfit, data = stan_dat, seed = rng_seed,
                                     chains = 1, chain_id = i, refresh = -1, iter = 2000))
-
 fit <- sflist2stanfit(sflist)
-y_hat <- unlist(extract(fit, 'y_hat'), use.names = FALSE)
-betas <- extract(fit, 'beta')$beta
+yhat <- unlist(extract(fit, 'y_hat'), use.names = FALSE)
+
+ppcheck <- function(yhat, datrow, test) {
+  # each column is one posterior predictive sample
+  dim(yhat) <- c(length(yhat) / datrow, datrow)
+  apply(yhat, 1, test)
+}
+
+observed <- mean(dat$y)
+propcheck <- ppcheck(yhat, nrow(dat), mean)
+hist(propcheck, breaks = 50, col = 'grey96',
+     main = paste('p =', mean(observed >= propcheck)))
+abline(v = observed, col = 'red', lwd = 2)
