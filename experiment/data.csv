@@ -1,13 +1,13 @@
-id,itemTime,language,alien,learning,task,answer,correct,engagement,difficulty,comments
-debug53K305:debugEHU2VG,1438168574874,german,maz,FL,recognition,old,True,9,7,really cool!
-debug53K305:debugEHU2VG,1438168575202,german,buk,LF,recognition,old,True,9,7,really cool!
-debug53K305:debugEHU2VG,1438168575507,german,wug,FL,recognition,old,True,9,7,really cool!
-debug53K305:debugEHU2VG,1438168575850,german,niz,LF,recognition,old,True,9,7,really cool!
-debug53K305:debugEHU2VG,1438168576185,german,zan,FL,recognition,old,True,9,7,really cool!
-debug53K305:debugEHU2VG,1438168576594,german,mob,LF,recognition,old,False,9,7,really cool!
-debug53K305:debugEHU2VG,1438168578490,german,buk,LF,categorization,left learned,False,9,7,really cool!
-debug53K305:debugEHU2VG,1438168579563,german,niz,LF,categorization,left learned,False,9,7,really cool!
-debug53K305:debugEHU2VG,1438168580402,german,zan,FL,categorization,right learned,True,9,7,really cool!
-debug53K305:debugEHU2VG,1438168581010,german,maz,FL,categorization,left learned,True,9,7,really cool!
-debug53K305:debugEHU2VG,1438168581458,german,wug,FL,categorization,right learned,True,9,7,really cool!
-debug53K305:debugEHU2VG,1438168581971,german,mob,LF,categorization,left learned,True,9,7,really cool!
+id,itemTime,language,family,alien,learning,task,answer,correct,RT,engagement,difficulty,comments
+debugP9CKV1:debug9NFLYR,1438179633955,german,tob,Fc2_3323,FL,recognition,new,False,7100,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179635602,german,wug,Fa1_1113,LF,recognition,old,True,1640,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179636034,german,xbim,Fc1_3323,FL,recognition,new,True,432,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179636450,german,wug,Fa1_3321,LF,recognition,old,False,416,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179636882,german,dep,Fb2_3312,LF,recognition,new,False,431,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179637338,german,zak,Fb1_3313,LF,recognition,old,True,456,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179638931,german,wug,Fa1_2113,LF,categorization,left learned,True,1587,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179640258,german,tob,Fc2_3331,FL,categorization,right learned,True,1325,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179641460,german,dep,Fb2_2213,LF,categorization,left learned,False,1202,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179643923,german,zak,Fb1_3331,LF,categorization,left learned,True,2461,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179644739,german,niz,Fa2_3331,LF,categorization,right learned,False,814,4,8,this was ... something else
+debugP9CKV1:debug9NFLYR,1438179645435,german,xbim,Fc1_3313,FL,categorization,left learned,False,694,4,8,this was ... something else

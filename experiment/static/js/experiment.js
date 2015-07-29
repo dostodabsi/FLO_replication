@@ -1,22 +1,22 @@
 var psiTurk = require('./psiturk');
-var items = require('./specific/items').items;
-var setup = require('./specific/items').setup;
+var setup = require('./specific/items');
 var Questionnaire = require('./specific/postquestionnaire');
 
 
 class Experiment {
 
   constructor() {
+    this.RT = null;
     this.curTrial = 0;
     this.trialData = [];
 
     this.ALIEN_TIME = 175;
     this.LABEL_TIME = 1000;
-    this.allTrials = setup(items);
+    this.allTrials = setup();
 
     // dummy trials
-    this.recognitionTrials = setup(items);
-    this.categorizationTrials = setup(items);
+    this.recognitionTrials = setup().slice(0, 6);
+    this.categorizationTrials = setup().slice(0, 6);
 
     // dummy correct answers
     this.corAns = {
@@ -36,6 +36,7 @@ class Experiment {
       } else {
         $('#label').text(''); // fixation cross ?
       }
+      console.log(this.trial);
       this.startLearning();
     }
     else {
@@ -74,12 +75,12 @@ class Experiment {
 
   changeLabel() {
     var text = this.isFL ? 'That was a ' : 'This is a ';
-    $('#label').text(text + this.trial.alien);
+    $('#label').text(text + this.trial.family);
     setTimeout(() => this.pause('label'), this.LABEL_TIME);
   }
 
   changeImage() {
-    $('img').attr('src', `../static/aliens/${this.trial.alien}.png`);
+    $('img').attr('src', `../static/aliens/${this.trial.path}.png`);
     $('img').show();
     setTimeout(() => this.pause('img'), this.ALIEN_TIME);
   }
@@ -109,9 +110,11 @@ class Experiment {
     }
 
     this.testStim = this.recognitionTrials.pop();
-    $('img').attr('src', `../static/aliens/${this.testStim.alien}.png`);
+    $('img').attr('src', `../static/aliens/${this.testStim.path}.png`);
     $('img').show();
-    $('#label').text(this.testStim.alien);
+    $('#label').text(this.testStim.family);
+
+    this.RT = + new Date();
   }
 
   categorization() {
@@ -120,20 +123,23 @@ class Experiment {
     }
 
     this.testStim = this.categorizationTrials.pop();
-    var candidates = [this.testStim.alien, 'wug']; // hardcore comparison stimuli for now
+    var candidates = [this.testStim.path, 'test/wug']; // hardcode comparison stimuli for now
     var left = _.random(0, 1);
 
     $('#left').attr('src', ['../static/aliens/', candidates[left], '.png'].join(''));
     $('#right').attr('src', ['../static/aliens/', candidates[left === 0 ? 1 : 0], '.png'].join(''));
     $('#label').text('Did you learn the left or the right alien?');
+
+    this.RT = + new Date();
   }
 
   bindButtons(task) { // and start trial!
     $('.btn').on('click', (e) => {
       var answer = $(e.target).attr('id');
       var corAns = this.corAns[task][_.random(0, 5)];
-      this.trialData.push(this.testStim.alien, this.testStim.learning, task, answer, corAns);
-
+      this.trialData.push(this.testStim.family, this.testStim.alien,
+                          this.testStim.learning, task, answer,
+                          corAns,+ new Date() - this.RT);
       psiTurk.recordTrialData(this.trialData);
       this.trialData = [];
       return task === 'recognition' ? this.recognition() : this.categorization();

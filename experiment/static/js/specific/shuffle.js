@@ -1,4 +1,4 @@
-var setup = function(categories) {
+var shuffle = function(categories) {
     var order = [];
     var done = false;
     var num = [15,5,15,5,15,5,20];
@@ -47,8 +47,7 @@ var setup = function(categories) {
 			prev = s; //remember which item was selected
 			
 			// remove the item from every bin
-			for (var i = 0; i<bins.length; i++)
-			{
+			for (var i = 0; i < bins.length; i++) {
 				var bin = bins[i];
 				try {
 					// remove s from bin
@@ -63,7 +62,7 @@ var setup = function(categories) {
 				}
 			}
 			done = true;
-			for (var i = 0; i<count.length; i++) {
+			for (var i = 0; i < count.length; i++) {
 				if (num[i] != count[i]) {
 					done = false;
 					break;
@@ -85,4 +84,4 @@ var pushNTimes = function(array, value, n) {
 	}
 };
 
-module.exports = setup;
+module.exports = shuffle;

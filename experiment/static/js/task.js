@@ -9,10 +9,13 @@ var pages = [
     "postquestionnaire.html"
 ];
 
-var images = [
-    "../static/aliens/wug.png",
-    "../static/aliens/niz.png",
-    "../static/aliens/mob.png"
+var images = [ // TODO: doesn't work that way
+    "../static/aliens/Fa1/*",
+    "../static/aliens/Fa2/*",
+    "../static/aliens/Fb1/*",
+    "../static/aliens/Fb2/*",
+    "../static/aliens/Fc1/*",
+    "../static/aliens/Fc2/*"
 ];
 
 var instructionPages = [
