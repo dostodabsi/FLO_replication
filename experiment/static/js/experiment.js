@@ -13,6 +13,17 @@ class Experiment {
     this.ALIEN_TIME = 175;
     this.LABEL_TIME = 1000;
     this.allTrials = setup(items);
+
+    // dummy trials
+    this.recognitionTrials = setup(items);
+    this.categorizationTrials = setup(items);
+
+    // dummy correct answers
+    this.corAns = {
+      'recognition': [true, true, true, false, false, false],
+      'categorization': [false, false, false, true, true, true]
+    };
+
   }
 
   nextTrial() {
@@ -27,8 +38,14 @@ class Experiment {
       }
       this.startLearning();
     }
-    else
-      this.recognition();
+    else {
+      // prepare the recognition task
+      $('img').hide();
+      $('#label').text('');
+      $('#label').css('margin-top', '0px');
+      $('#buttons').css('visibility', 'visible');
+      this.bindButtons('recognition');
+    }
   }
 
   startLearning() {
@@ -79,25 +96,50 @@ class Experiment {
   }
 
   recognition() {
-    $('img').hide();
-    $('#buttons').css('visibility', 'visible');
-    $('#label').text('Recognition Task will follow!');
-    this.bindButtons();
+    if (this.recognitionTrials.length === 0) {
+      // prepare categorization task
+      $('img').attr('id', 'left');
+      var image = $('<img id = "right">');
+      image.insertAfter($('img'));
+
+      $('#new').attr('id', 'left learned').text('left learned');
+      $('#old').attr('id', 'right learned').text('right learned');
+      $('.btn').unbind('click');
+      return this.bindButtons('categorization');
+    }
+
+    this.testStim = this.recognitionTrials.pop();
+    $('img').attr('src', `../static/aliens/${this.testStim.alien}.png`);
+    $('img').show();
+    $('#label').text(this.testStim.alien);
   }
 
   categorization() {
-    $('img').hide();
-    $('#label').text('Categorization Task will follow!');
-    setTimeout(this.end, 2000);
+    if (this.categorizationTrials.length === 0) {
+      return this.end();
+    }
+
+    this.testStim = this.categorizationTrials.pop();
+    var candidates = [this.testStim.alien, 'wug']; // hardcore comparison stimuli for now
+    var left = _.random(0, 1);
+
+    $('#left').attr('src', ['../static/aliens/', candidates[left], '.png'].join(''));
+    $('#right').attr('src', ['../static/aliens/', candidates[left === 0 ? 1 : 0], '.png'].join(''));
+    $('#label').text('Did you learn the left or the right alien?');
   }
 
-  bindButtons() {
+  bindButtons(task) { // and start trial!
     $('.btn').on('click', (e) => {
       var answer = $(e.target).attr('id');
-      this.trialData.push(this.trial.alien, this.trial.learning, answer, true);
+      var corAns = this.corAns[task][_.random(0, 5)];
+      this.trialData.push(this.testStim.alien, this.testStim.learning, task, answer, corAns);
+
       psiTurk.recordTrialData(this.trialData);
-      this.categorization();
+      this.trialData = [];
+      return task === 'recognition' ? this.recognition() : this.categorization();
     });
+
+    return task === 'recognition' ? this.recognition() : this.categorization();
   }
 }
 

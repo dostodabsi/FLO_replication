@@ -1,2 +1,13 @@
-id,itemTime,language,alien,learning,answer,correct,engagement,difficulty,comments
-debugKMQAUS:debug23LGK4,1437475244471,german,wug,FL,new,True,10,8,"no, thank you!"
+id,itemTime,language,alien,learning,task,answer,correct,engagement,difficulty,comments
+debug53K305:debugEHU2VG,1438168574874,german,maz,FL,recognition,old,True,9,7,really cool!
+debug53K305:debugEHU2VG,1438168575202,german,buk,LF,recognition,old,True,9,7,really cool!
+debug53K305:debugEHU2VG,1438168575507,german,wug,FL,recognition,old,True,9,7,really cool!
+debug53K305:debugEHU2VG,1438168575850,german,niz,LF,recognition,old,True,9,7,really cool!
+debug53K305:debugEHU2VG,1438168576185,german,zan,FL,recognition,old,True,9,7,really cool!
+debug53K305:debugEHU2VG,1438168576594,german,mob,LF,recognition,old,False,9,7,really cool!
+debug53K305:debugEHU2VG,1438168578490,german,buk,LF,categorization,left learned,False,9,7,really cool!
+debug53K305:debugEHU2VG,1438168579563,german,niz,LF,categorization,left learned,False,9,7,really cool!
+debug53K305:debugEHU2VG,1438168580402,german,zan,FL,categorization,right learned,True,9,7,really cool!
+debug53K305:debugEHU2VG,1438168581010,german,maz,FL,categorization,left learned,True,9,7,really cool!
+debug53K305:debugEHU2VG,1438168581458,german,wug,FL,categorization,right learned,True,9,7,really cool!
+debug53K305:debugEHU2VG,1438168581971,german,mob,LF,categorization,left learned,True,9,7,really cool!

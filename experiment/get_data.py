@@ -3,7 +3,7 @@ import json
 import pandas as pd
 
 
-rating_header = ['id', 'itemTime', 'language', 'alien', 'learning', 'answer', 'correct', 'engagement', 'difficulty', 'comments']
+rating_header = ['id', 'itemTime', 'language', 'alien', 'learning', 'task', 'answer', 'correct', 'engagement', 'difficulty', 'comments']
 
 db_url = 'sqlite:///participants.db'
 table_name = 'flo'
